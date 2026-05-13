@@ -1,97 +1,98 @@
-# apps/api
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-**The backend engine behind ForgePass — contribution indexing, Trust Score computation, and the public API**
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-This package is the off-chain backbone of ForgePass. It ingests contributor activity from GitHub, Horizon (Stellar's API), and ecosystem platforms; computes Trust Scores; writes verified credentials to the on-chain contracts; and serves all passport data through a free, open API that any Stellar project can consume.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-> Lives in [`forgepass-core`](../../) — the ForgePass core monorepo.
+## Description
 
----
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Core Responsibilities
-
-**Contribution Ingestion**
-Pulls and indexes contributor activity from multiple sources:
-- GitHub (OAuth-authenticated) — pull requests, code reviews, and commit history against Stellar ecosystem repositories
-- Stellar Horizon API — on-chain account history, DEX trades, Aquarius LP positions, transaction volume
-- GrantFox — bounty completions and escrow payouts
-- Trustless Work — milestone completions recorded on-chain
-- SCF — grant application history and delivery status
-
-**Scoring Engine**
-Runs the open Trust Score algorithm against each contributor's aggregated signals. The algorithm is versioned and fully documented — every weight and calculation is auditable. No black box.
-
-**On-chain Writing**
-After scoring, calls the [`forgepass-contracts`](https://github.com/forgepass-xyz/forgepass-contracts) Soroban contracts to anchor updated Trust Scores and write new verified credentials to the contributor's Builder Passport.
-
-**Public API**
-Exposes a REST and GraphQL API — free and open to any Stellar project. Returns passport data, Trust Scores, contributor graphs, and badge records at API speed using PostgreSQL as the read layer.
-
-**Sybil Resistance**
-Enforces verification gates during onboarding: Stellar account age checks, minimum XLM balance thresholds, and GitHub verification requirements to make it meaningfully harder to game contributor reputation.
-
----
-
-## API Overview
-
-The public API is versioned and freely accessible. No authentication required for read operations.
-
-```
-GET  /v1/passport/:stellarAddress     — Full passport for a contributor
-GET  /v1/score/:stellarAddress        — Trust Score and signal breakdown
-GET  /v1/badges/:stellarAddress       — Achievement badges earned
-GET  /v1/graph/:stellarAddress        — Contributor graph (collaborators, shared projects)
-GET  /v1/contributors                 — Paginated contributor index with filtering
-```
-
-Full API reference: [`docs/`](../../docs)
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|---|---|
-| Framework | NestJS (Node.js / TypeScript) |
-| Database | PostgreSQL |
-| Blockchain | Stellar SDK (JS) + Horizon API |
-| Smart Contracts | Soroban SDK (writes to `forgepass-contracts`) |
-| Auth | GitHub OAuth 2.0 |
-| CI | GitHub Actions (automated contribution indexing on repo events) |
-| AI (opt-in) | Anthropic API — generates human-readable contributor summaries |
-
----
-
-## Development Setup
-
-> Requires Node.js 18+, PostgreSQL, and a Stellar Horizon endpoint (testnet or mainnet). From the monorepo root, run `npm install` before starting.
+## Project setup
 
 ```bash
-# From the monorepo root
-cp .env.example .env
-# Fill in PostgreSQL connection, Horizon endpoint, GitHub OAuth credentials
-
-# Run database migrations
-npm run migrate --workspace=apps/api
-
-# Start the development server (runs on :3001 by default)
-npm run dev --workspace=apps/api
+$ npm install
 ```
 
-See [`docs/`](../../docs) for full environment variable reference and testnet configuration.
+## Compile and run the project
 
----
+```bash
+# development
+$ npm run start
 
-## Relationship to Other Packages
+# watch mode
+$ npm run start:dev
 
-- Reads from and writes to **[`forgepass-contracts`](https://github.com/forgepass-xyz/forgepass-contracts)** (Soroban).
-- Serves data consumed by **[`apps/web`](../web)** (the contributor dashboard).
-- Powers the **[`forgepass-sdk`](https://github.com/forgepass-xyz/forgepass-sdk)** — third-party projects use the SDK to call this API.
+# production mode
+$ npm run start:prod
+```
 
----
+## Run tests
 
-## Contributing
+```bash
+# unit tests
+$ npm run test
 
-Issues are labelled `good-first-issue` for accessible entry points. TypeScript and NestJS familiarity is helpful but not required for many issues.
+# e2e tests
+$ npm run test:e2e
 
-All code is **MIT licensed**.
+# test coverage
+$ npm run test:cov
+```
+
+## Deployment
+
+When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+
+If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+
+```bash
+$ npm install -g @nestjs/mau
+$ mau deploy
+```
+
+With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+
+## Resources
+
+Check out a few resources that may come in handy when working with NestJS:
+
+- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
+- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
+- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
+- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
+- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
+- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
+- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
+- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+
+## Support
+
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+
+## Stay in touch
+
+- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
