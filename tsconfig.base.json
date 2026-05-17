@@ -9,6 +9,7 @@
     "declarationMap": true,
     "sourceMap": true,
     "moduleResolution": "node",
+    "ignoreDeprecations": "5.0",
     "target": "ES2021",
     "lib": ["ES2021"],
     "experimentalDecorators": true,
