@@ -1,74 +1,36 @@
-# docs
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-**Documentation for the ForgePass ecosystem — API reference, integration guides, and architecture**
+## Getting Started
 
-This package contains everything needed to understand, integrate with, and contribute to ForgePass. It is the authoritative reference for the public API, the Trust Score algorithm, smart contract interfaces, and the SDK.
-
-> Lives in [`forgepass-core`](../) — the ForgePass core monorepo.
-
----
-
-## Who This Is For
-
-**Developers integrating ForgePass** — if you are building a Stellar project and want to surface contributor reputation, start with the API Reference and Integration Guides.
-
-**Contributors to ForgePass** — if you are building or improving any package in this monorepo, the Architecture section explains how the system fits together and why each design decision was made.
-
-**Anyone curious about how the Trust Score works** — the scoring algorithm is fully documented here. Every signal, weight, and version is explained openly.
-
----
-
-## What's in Here
-
-### API Reference
-Complete documentation for the ForgePass public REST and GraphQL API — endpoints, parameters, response shapes, and authentication (reads are open; writes require Stellar wallet signing).
-
-### Integration Guides
-Step-by-step guides for the most common integration patterns:
-- Ranking contributor applicants by Trust Score (GrantFox-style)
-- Surfacing passport history alongside grant applications (SCF-style)
-- Adding contribution-weighted governance voting (DAO-style)
-- Auto-writing escrow completions to contributor passports (Trustless Work-style)
-- Getting started with the [`forgepass-sdk`](https://github.com/forgepass-xyz/forgepass-sdk)
-
-### Trust Score Algorithm
-The full specification for the open Trust Score — which signals are measured, how they are weighted, how the algorithm is versioned, and how to read the per-signal breakdown returned by the API.
-
-This section answers the question: *"How was this score calculated?"* completely and without ambiguity.
-
-### Architecture
-How the ForgePass system is designed end-to-end:
-- What lives on-chain (Soroban) vs off-chain (API + PostgreSQL)
-- How contribution signals flow from source to passport
-- How sybil resistance is enforced
-- How privacy controls work
-- How new signal sources can be added without changing core contracts
-
-### Smart Contract Reference
-Interface documentation for the Soroban contracts in [`forgepass-contracts`](https://github.com/forgepass-xyz/forgepass-contracts) — for projects that want to interact with passports directly on-chain rather than through the API.
-
-### Contribution Guide
-How to contribute to any ForgePass repository — setup, code standards, PR process, and how the good-first-issue labels are structured across repos.
-
----
-
-## Running the Docs Locally
-
-The documentation site is built with MDX.
+First, run the development server:
 
 ```bash
-# From the monorepo root, run npm install first, then:
-npm run dev --workspace=docs
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-Open [http://localhost:3002](http://localhost:3002) to browse the docs locally.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
----
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Contributing
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-Documentation improvements are always welcome — clearer explanations, better examples, and corrections are as valuable as code contributions.
+## Learn More
 
-If you find something confusing or missing while integrating ForgePass, please open an issue. The best documentation comes from people who just went through the experience of using something for the first time.
+To learn more about Next.js, take a look at the following resources:
 
-All content is **MIT licensed**.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

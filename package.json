@@ -1,0 +1,31 @@
+{
+  "name": "forgepass-core",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "docs"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "dev": "npm run dev --workspaces",
+    "lint": "npm run lint --workspaces",
+    "typecheck": "npm run typecheck --workspaces",
+    "test": "npm run test --workspaces",
+    "clean": "rm -rf apps/api/dist apps/web/.next docs/.next node_modules"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.3",
+    "@typescript-eslint/parser": "^8.59.3",
+    "eslint": "^9.39.4",
+    "eslint-config-prettier": "^9.1.2",
+    "prettier": "^3.8.3",
+    "typescript": "5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}
